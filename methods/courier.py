@@ -6,6 +6,8 @@ import allure
 
 class CourierMethods:
 
+    COURIER_CREATED_MESSAGE = {"ok": True} 
+
     def __init__(self, url):
         self.url = url
 

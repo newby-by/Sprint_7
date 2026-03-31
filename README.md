@@ -25,4 +25,13 @@ https://qa-scooter.praktikum-services.ru/api/v1/courier
 
 ```
 
+**Response**
+
+```bash
+{"ok":true}
+```
+
 **Note** You should use `login`, `password` and `firstName` with other data.
+
+2. Creating a courier with existent login is not allowed.
+

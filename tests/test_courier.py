@@ -16,4 +16,10 @@ class TestCourierAPI:
             url=data.BASE_URL+data.COURIER_HANDLER
         ).create(payload=courier_data.payload)
 
-        assert CourierMethods.get_status_code(response) == HTTPStatus.CREATED
+        assert (
+            CourierMethods.get_status_code(response) == HTTPStatus.CREATED and
+            CourierMethods.deserialize(response) == 
+            CourierMethods.COURIER_CREATED_MESSAGE
+        ), (
+            f"Data {courier_data.payload}"
+        )
