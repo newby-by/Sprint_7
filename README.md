@@ -8,3 +8,21 @@ The Praktikum team
 
 My Tomcat that get me up early.
 Your 4 a.m. song is so cool.
+
+## How we test
+
+1. A courier is created with expected data: `login`, `password` and `firstName`.
+
+
+[See the test](./tests/test_courier.py#test_create_courier_with_expected_data)
+
+Test in command line
+
+```bash
+curl POST -H "Content-Type:Application/json" \
+-d '{"login":"d3jh7c","password":"lkncx8y&^5vgg","firstName":"Alice"}' \
+https://qa-scooter.praktikum-services.ru/api/v1/courier
+
+```
+
+**Note** You should use `login`, `password` and `firstName` with other data.
