@@ -40,3 +40,26 @@ class Courier:
             "login": self.login,
             "password": self.password
         }
+    
+    @property
+    def payload_without_login(self):
+        return {
+            "password": self.password,
+            "firstName": self.first_name
+        }
+
+    @property
+    def payload_without_password(self):
+        return {
+            "login": self.login,
+            "firstName": self.first_name
+        }
+
+    @property
+    def payload_without_login_and_password(self):
+        return {
+            "firstName": self.first_name
+        }
+
+
+courier = Courier()

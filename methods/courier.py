@@ -10,6 +10,9 @@ class CourierMethods:
     COURIER_CREATED_MESSAGE_WITH_CONFLICT = {
         "message": "Этот логин уже используется. Попробуйте другой."
     }
+    COURIER_CREATED_MESSAGE_WITH_BAD_REQUEST = {
+        "message": "Недостаточно данных для создания учетной записи"
+    }
 
     def __init__(self, url):
         self.url = url

@@ -1,6 +1,7 @@
 from http import HTTPStatus
 
 import allure
+import pytest
 
 import data
 from methods.courier import CourierMethods
@@ -52,3 +53,22 @@ class TestCourierAPI:
         ), (
             f"Data {courier.payload}"
         )
+
+    @allure.title('Create a courier without login or password')
+    @allure.description('Creating a courier without login or password is not allowed')
+    @pytest.mark.parametrize(
+        'payload', [data.courier.payload_without_login,
+                    data.courier.payload_without_password,
+                    data.courier.payload_without_login_and_password])
+    def test_create_courier_without_login_or_password_is_not_allowed(self, payload):
+        response = CourierMethods(
+            url=data.BASE_URL+data.COURIER_HANDLER
+        ).create(payload=payload)
+        assert (
+            CourierMethods.get_status_code(response) == HTTPStatus.BAD_REQUEST and
+            CourierMethods.deserialize(response).get('message') == 
+            CourierMethods.COURIER_CREATED_MESSAGE_WITH_BAD_REQUEST.get('message')
+        ), (
+            f"Data {payload} {response.text}"
+        )
+

@@ -78,4 +78,24 @@ https://qa-scooter.praktikum-services.ru/api/v1/courier
 
 4. Creating a courier without login or password is not allowed.
 
-5. Creating a courier with existed login is not allowed.
+[See the test](./tests/test_courier.py#test_create_courier_without_first_name_is_allowed)
+
+```bash without login
+curl POST -H "Content-Type:Application/json" \
+-d '{"password":"lkncx8y&^5vgg","firstName":"Alice"}' \
+https://qa-scooter.praktikum-services.ru/api/v1/courier
+
+```
+
+```bash without password
+curl POST -H "Content-Type:Application/json" \
+-d '{"login":"d3jh7c12","firstName":"Alice"}' \
+https://qa-scooter.praktikum-services.ru/api/v1/courier
+
+```
+
+**Response**
+
+```bash
+{"code":400,"message":"Недостаточно данных для создания учетной записи"}
+```
