@@ -13,7 +13,6 @@ Your 4 a.m. song is so cool.
 
 1. A courier is created with expected data: `login`, `password` and `firstName`.
 
-
 [See the test](./tests/test_courier.py#test_create_courier_with_expected_data)
 
 Test in command line
@@ -33,5 +32,29 @@ https://qa-scooter.praktikum-services.ru/api/v1/courier
 
 **Note** You should use `login`, `password` and `firstName` with other data.
 
-2. Creating a courier with existent login is not allowed.
+1. Creating a courier with existent login is not allowed.
 
+[See the test](./tests/test_courier.py#test_create_courier_with_ununique_data)
+
+Test in command line
+
+```bash
+curl POST -H "Content-Type:Application/json" \
+-d '{"login":"d3jh7c3452","password":"lkncx8y&^5vgg","firstName":"Alice"}' \
+https://qa-scooter.praktikum-services.ru/api/v1/courier
+
+curl POST -H "Content-Type:Application/json" \
+-d '{"login":"d3jh7c3452","password":"lkncx8y&^5vgg","firstName":"Alice"}' \
+https://qa-scooter.praktikum-services.ru/api/v1/courier
+
+```
+
+**Response**
+*TODO CHECK MESSAGE* `. Попробуйте другой`.
+
+```bash
+HTTP/1.1 409 Сonflict
+{
+    "message": "Этот логин уже используется. Попробуйте другой."
+}
+```

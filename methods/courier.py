@@ -6,7 +6,10 @@ import allure
 
 class CourierMethods:
 
-    COURIER_CREATED_MESSAGE = {"ok": True} 
+    COURIER_CREATED_MESSAGE = {"ok": True}
+    COURIER_CREATED_MESSAGE_WITH_CONFLICT = {
+        "message": "Этот логин уже используется. Попробуйте другой."
+    }
 
     def __init__(self, url):
         self.url = url
