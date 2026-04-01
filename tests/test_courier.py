@@ -22,7 +22,7 @@ class TestCourierAPI:
             CourierMethods.deserialize(response) == 
             CourierMethods.COURIER_CREATED_MESSAGE
         ), (
-            f"Data {courier.payload}"
+            f"Data {courier.payload} {response.text}"
         )
 
     @allure.title('Create a courier with ununique courier data')
@@ -36,7 +36,7 @@ class TestCourierAPI:
             CourierMethods.deserialize(response).get('message') == 
             CourierMethods.COURIER_CREATED_MESSAGE_WITH_CONFLICT.get('message')
         ), (
-            f"Data {existed_courier_data}"
+            f"Data {existed_courier_data} {response.text}"
         )
 
     @allure.title('Create a courier without fist name')
@@ -51,7 +51,7 @@ class TestCourierAPI:
             CourierMethods.deserialize(response) == 
             CourierMethods.COURIER_CREATED_MESSAGE
         ), (
-            f"Data {courier.payload}"
+            f"Data {courier.payload} {response.text}"
         )
 
     @allure.title('Create a courier without login or password')
