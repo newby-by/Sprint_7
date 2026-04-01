@@ -37,3 +37,18 @@ class TestCourierAPI:
         ), (
             f"Data {existed_courier_data}"
         )
+
+    @allure.title('Create a courier without fist name')
+    @allure.description('The login, password are expected only. Creating a courier is allowed')
+    def test_create_courier_without_first_name_is_allowed(self, courier):
+        response = CourierMethods(
+            url=data.BASE_URL+data.COURIER_HANDLER
+        ).create(payload=courier.payload_without_first_name)
+
+        assert (
+            CourierMethods.get_status_code(response) == HTTPStatus.CREATED and
+            CourierMethods.deserialize(response) == 
+            CourierMethods.COURIER_CREATED_MESSAGE
+        ), (
+            f"Data {courier.payload}"
+        )

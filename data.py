@@ -33,3 +33,10 @@ class Courier:
             "password": self.password,
             "firstName": self.first_name
         }
+
+    @property
+    def payload_without_first_name(self):
+        return {
+            "login": self.login,
+            "password": self.password
+        }
