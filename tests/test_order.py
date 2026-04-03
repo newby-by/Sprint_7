@@ -31,4 +31,6 @@ class TestOrder:
         order_methods = OrderMethods(url=data.BASE_URL+data.ORDER_HANDLER)
         response = order_methods.get_orders()
         assert (response.status_code == HTTPStatus.OK and
-                isinstance(OrderMethods.deserialize(response).get("orders"), list))
+                isinstance(
+                    OrderMethods.deserialize(response).get("orders"), list
+                ))

@@ -1,5 +1,4 @@
 import allure
-import requests
 
 from methods.base_methods import Methods
 
