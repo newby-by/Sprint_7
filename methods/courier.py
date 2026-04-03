@@ -4,7 +4,6 @@ import requests
 from methods.base_methods import Methods
 
 
-
 class CourierMethods(Methods):
 
     COURIER_CREATED_MESSAGE = {"ok": True}
@@ -16,25 +15,19 @@ class CourierMethods(Methods):
     }
 
     RESPONSE_LOGIN_COURIER_WITH_WRONG_DATA = {
-        "code":404,"message":"Учетная запись не найдена"
+        "code": 404,
+        "message": "Учетная запись не найдена"
     }
     RESPONSE_LOGIN_COURIER_WITHOUT_REQUIRED_DATA = {
-        "code":400,"message":"Недостаточно данных для входа"
+        "code": 400,
+        "message": "Недостаточно данных для входа"
     }
-
-    def __init__(self, url):
-        self.url = url
 
     @allure.step("Create a courier")
     def create(self, payload=None, headers=None):
-        response = requests.post(
-            url=self.url,
-            data=payload
-        )
+        response = self.post(data=payload)
         return response
 
     @allure.step("Login a courier")
     def login(self, payload=None):
-        return self.post(self.url, data=payload)
-    
-    
+        return self.post(data=payload)

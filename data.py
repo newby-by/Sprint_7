@@ -27,12 +27,12 @@ class Courier:
     def login(self):
         self._login = (self.faker.user_name() +
                        str(self.faker.random_int(min=1, max=100, step=1)))
-        return self._login 
+        return self._login
 
     @property
     def password(self):
         self._password = self.faker.password()
-        return self._password 
+        return self._password
 
     @property
     def first_name(self):
@@ -46,7 +46,7 @@ class Courier:
             "password": self.password,
             "firstName": self.first_name
         }
-    
+
     @property
     def generated_payload(self):
         return {
@@ -61,12 +61,12 @@ class Courier:
             "login": self._login,
             "password": self._password,
         }
-    
+
     def generated_payload_without_login(self):
         return {
             "password": self._password,
         }
-    
+
     def generated_payload_without_password(self):
         return {
             "login": self._login,
@@ -78,7 +78,7 @@ class Courier:
             "login": self.login,
             "password": self.password
         }
-    
+
     @property
     def payload_without_login(self):
         return {
@@ -98,10 +98,10 @@ class Courier:
         return {
             "firstName": self.first_name
         }
-    
+
     def __call__(self):
         return self
-    
+
     def __str__(self):
         return ('{"login": 'f'{self._login},'
                 f'"password": {self._password},'
@@ -214,7 +214,7 @@ class OrderScooterData:
         self.template_data['comment'] = self.comments_for_courier
         self.template_data['color'] = [self.scooter_color]
         return self.template_data
-    
+
     @property
     def expected_data_with_two_colors(self):
         self.template_data = dict()
@@ -228,7 +228,7 @@ class OrderScooterData:
         self.template_data['comment'] = self.comments_for_courier
         self.template_data['color'] = OrderScooterForm.SCOOTER_COLORS
         return self.template_data
-    
+
     @property
     def expected_data_without_colors(self):
         self.template_data = dict()
@@ -241,7 +241,7 @@ class OrderScooterData:
         self.template_data['rentTime'] = self.rental_period
         self.template_data['comment'] = self.comments_for_courier
         return self.template_data
-    
+
     @property
     def expected_data(self):
         self.template_data = dict()
@@ -255,8 +255,6 @@ class OrderScooterData:
         self.template_data['comment'] = "Saske, come back to Konoha"
         self.template_data['color'] = ["BLACK"]
         return self.template_data
-    
-    
 
     def __str__(self):
         return str(self.template_data)

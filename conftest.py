@@ -1,7 +1,7 @@
 import pytest
 
 import data
-from methods.courier import CourierMethods 
+from methods.courier import CourierMethods
 
 
 @pytest.fixture(scope='function')

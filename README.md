@@ -185,5 +185,25 @@ Test in command line without a login
 ```
 
 2. Create an order with color BLACK and GREY.
+
+```bash
+ curl POST -H "Content-Type:Application/json" -d '{"firstName":"Naruto","lastName":"Uchiha","address":"Konoha, 142 apt.","metroStation":4,"phone":"+7 800 355 35 35","rentTime":5,"deliveryDate":"2020-06-06","comment":"Saske, come back to Konoha","color":["BLACK", "GREY"]}' https://qa-scooter.praktikum-services.ru/api/v1/orders
+```
+
+**Response**
+
+```bash
+{"track":656119}
+```
+
 3. Create an order without color.
-4. Create an order. The response has track.
+
+```bash
+ curl POST -H "Content-Type:Application/json" -d '{"firstName":"Naruto","lastName":"Uchiha","address":"Konoha, 142 apt.","metroStation":4,"phone":"+7 800 355 35 35","rentTime":5,"deliveryDate":"2020-06-06","comment":"Saske, come back to Konoha"}' https://qa-scooter.praktikum-services.ru/api/v1/orders
+```
+
+**Response**
+
+```bash
+{"track":656120}
+```
