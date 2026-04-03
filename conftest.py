@@ -18,3 +18,11 @@ def existed_courier_data(courier):
 
     return payload
 
+
+@pytest.fixture(scope='function')
+def existed_courier(courier):
+    CourierMethods(
+        url=data.BASE_URL+data.COURIER_HANDLER
+    ).create(payload=courier.payload)
+
+    return courier

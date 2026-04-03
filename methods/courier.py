@@ -1,10 +1,12 @@
+import allure
 import requests
 from requests.exceptions import JSONDecodeError
 
-import allure
+from methods.base_methods import Methods
 
 
-class CourierMethods:
+
+class CourierMethods(Methods):
 
     COURIER_CREATED_MESSAGE = {"ok": True}
     COURIER_CREATED_MESSAGE_WITH_CONFLICT = {
@@ -12,6 +14,13 @@ class CourierMethods:
     }
     COURIER_CREATED_MESSAGE_WITH_BAD_REQUEST = {
         "message": "Недостаточно данных для создания учетной записи"
+    }
+
+    RESPONSE_LOGIN_COURIER_WITH_WRONG_DATA = {
+        "code":404,"message":"Учетная запись не найдена"
+    }
+    RESPONSE_LOGIN_COURIER_WITHOUT_REQUIRED_DATA = {
+        "code":400,"message":"Недостаточно данных для входа"
     }
 
     def __init__(self, url):
@@ -25,6 +34,10 @@ class CourierMethods:
         )
         return response
 
+    @allure.step("Login a courier")
+    def login(self, payload=None):
+        return self.post(self.url, data=payload)
+    
     @staticmethod
     def get_status_code(response):
         return response.status_code
