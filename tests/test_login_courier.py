@@ -49,7 +49,7 @@ class TestLoginCourier:
         'method',
         [data.Courier.generated_payload_without_login,
          pytest.param(data.Courier.generated_payload_without_password,
-                      marks=pytest.mark.xfail(reason='Some bug'))] 
+                      marks=pytest.mark.xfail(reason='Without a pssword is FAILED'))] 
     )
     def test_login_courier_without_required_data(self, existed_courier, method):
         response = CourierMethods(

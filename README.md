@@ -184,6 +184,6 @@ Test in command line without a login
 {"track":656114}
 ```
 
-1. Create an order with color BLACK and GREY.
-2. Create an order without color.
-3. Create an order. The response has track.
+2. Create an order with color BLACK and GREY.
+3. Create an order without color.
+4. Create an order. The response has track.

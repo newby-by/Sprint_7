@@ -1,6 +1,5 @@
 import allure
 import requests
-from requests.exceptions import JSONDecodeError
 
 from methods.base_methods import Methods
 
@@ -38,13 +37,4 @@ class CourierMethods(Methods):
     def login(self, payload=None):
         return self.post(self.url, data=payload)
     
-    @staticmethod
-    def get_status_code(response):
-        return response.status_code
     
-    @staticmethod
-    def deserialize(response):
-        try:
-            return response.json()
-        except JSONDecodeError:
-            return None

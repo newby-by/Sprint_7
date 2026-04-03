@@ -6,6 +6,7 @@ from faker import Faker
 BASE_URL = 'https://qa-scooter.praktikum-services.ru'
 COURIER_HANDLER = '/api/v1/courier'
 COURIER_LOGIN = '/login'
+ORDER_HANDLER = '/api/v1/orders'
 
 WRONG_DATA = '1'
 
@@ -24,7 +25,8 @@ class Courier:
 
     @property
     def login(self):
-        self._login = self.faker.user_name()
+        self._login = (self.faker.user_name() +
+                       str(self.faker.random_int(min=1, max=100, step=1)))
         return self._login 
 
     @property
@@ -51,7 +53,6 @@ class Courier:
             "login": self._login,
             "password": self._password,
             "firstName": self._first_name
-    
         }
 
     @property
@@ -61,13 +62,11 @@ class Courier:
             "password": self._password,
         }
     
-
     def generated_payload_without_login(self):
         return {
             "password": self._password,
         }
     
-
     def generated_payload_without_password(self):
         return {
             "login": self._login,
@@ -132,29 +131,25 @@ class OrderScooterForm:
         'семеро суток': 7,
     }
 
-    SCOOTER_COLOR = {
-        'чёрный жемчуг': 1,
-        'серая безысходность': 2,
-    }
+    SCOOTER_COLORS = ["BLACK", "GREY"]
 
     def __init__(self):
         self.template_data = {
-            'Имя': None,
-            'Фамилия': None,
-            'Адрес': None,
-            'Станция метро': None,
-            'Телефон': None,
-            'Дата доставки': None,
-            'Срок аренды': None,
-            'Цвет': None,
-            'Комментарий': None,
+            "firstName": None,
+            "lastName": None,
+            "address": None,
+            "metroStation": None,
+            "phone": None,
+            "rentTime": None,
+            "deliveryDate": None,
+            "comment": None,
+            "color": None
         }
 
 
 class OrderScooterData:
 
     def __init__(self, locale='ru_RU'):
-        self.template_data = OrderScooterForm().template_data
         self.faker = Faker(locale)
 
     @property
@@ -171,7 +166,7 @@ class OrderScooterData:
 
     @property
     def metro(self):
-        return 'Черкизовская'
+        return self.faker.random_int(min=1, max=100, step=1)
 
     @property
     def phone_number(self):
@@ -179,7 +174,7 @@ class OrderScooterData:
 
     @property
     def date_of_pick_up(self):
-        pattern = "%d.%m.%Y"
+        pattern = "%Y-%m-%d"
 
         start_date = datetime.now()
         end_date = datetime(2026, 12, 31)
@@ -193,30 +188,75 @@ class OrderScooterData:
 
     @property
     def rental_period(self):
-        periods = list(OrderScooterForm.RENTAL_PERIOD)
+        periods = list(OrderScooterForm.RENTAL_PERIOD.values())
         return self.faker.random_element(elements=periods)
 
     @property
     def scooter_color(self):
-        colors = list(OrderScooterForm.SCOOTER_COLOR)
-        return self.faker.random_element(elements=colors)
+        return self.faker.random_element(
+            elements=OrderScooterForm.SCOOTER_COLORS
+        )
 
     @property
     def comments_for_courier(self):
         return self.faker.sentence()
 
     @property
-    def expected_data(self):
-        self.template_data['Имя'] = self.first_name
-        self.template_data['Фамилия'] = self.last_name
-        self.template_data['Адрес'] = self.address
-        self.template_data['Станция метро'] = self.metro
-        self.template_data['Телефон'] = self.phone_number
-        self.template_data['Дата доставки'] = self.date_of_pick_up
-        self.template_data['Срок аренды'] = self.rental_period
-        self.template_data['Цвет'] = self.scooter_color
-        self.template_data['Комментарий'] = self.comments_for_courier
+    def expected_data_with_one_color(self):
+        self.template_data = dict()
+        self.template_data['firstName'] = self.first_name
+        self.template_data['lastName'] = self.last_name
+        self.template_data['address'] = self.address
+        self.template_data['metroStation'] = self.metro
+        self.template_data['phone'] = self.phone_number
+        self.template_data['deliveryDate'] = self.date_of_pick_up
+        self.template_data['rentTime'] = self.rental_period
+        self.template_data['comment'] = self.comments_for_courier
+        self.template_data['color'] = [self.scooter_color]
         return self.template_data
+    
+    @property
+    def expected_data_with_two_colors(self):
+        self.template_data = dict()
+        self.template_data['firstName'] = self.first_name
+        self.template_data['lastName'] = self.last_name
+        self.template_data['address'] = self.address
+        self.template_data['metroStation'] = self.metro
+        self.template_data['phone'] = self.phone_number
+        self.template_data['deliveryDate'] = self.date_of_pick_up
+        self.template_data['rentTime'] = self.rental_period
+        self.template_data['comment'] = self.comments_for_courier
+        self.template_data['color'] = OrderScooterForm.SCOOTER_COLORS
+        return self.template_data
+    
+    @property
+    def expected_data_without_colors(self):
+        self.template_data = dict()
+        self.template_data['firstName'] = self.first_name
+        self.template_data['lastName'] = self.last_name
+        self.template_data['address'] = self.address
+        self.template_data['metroStation'] = self.metro
+        self.template_data['phone'] = self.phone_number
+        self.template_data['deliveryDate'] = self.date_of_pick_up
+        self.template_data['rentTime'] = self.rental_period
+        self.template_data['comment'] = self.comments_for_courier
+        return self.template_data
+    
+    @property
+    def expected_data(self):
+        self.template_data = dict()
+        self.template_data['firstName'] = "Naruto"
+        self.template_data['lastName'] = "Uchiha"
+        self.template_data['address'] = "Konoha, 142 apt."
+        self.template_data['metroStation'] = 4
+        self.template_data['phone'] = "+7 800 355 35 35"
+        self.template_data['deliveryDate'] = "2020-06-06"
+        self.template_data['rentTime'] = 5
+        self.template_data['comment'] = "Saske, come back to Konoha"
+        self.template_data['color'] = ["BLACK"]
+        return self.template_data
+    
+    
 
     def __str__(self):
         return str(self.template_data)
